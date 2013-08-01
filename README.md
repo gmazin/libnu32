@@ -1,4 +1,6 @@
 libnu32
 =======
 
-An abstraction library for the PIC32-based NU32 microcontroller
+An abstraction library for the PIC32-based NU32 microcontroller.
+
+Under heavy development: currently not recommended for use.
