@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=libnu32.X
+PROJECTNAME=libnu32
 
 # Active Configuration
 DEFAULTCONF=default
