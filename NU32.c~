@@ -63,21 +63,6 @@ void startup() {
   AD1CON1bits.ADON = 1; // Turn the ADC on
 }
 
-void init_pwm(int pin, int mode) {
-  switch (mode) {
-
-	case SERVO:
-
-
-	case PWM:
-
-	default:
-	break;
-
-  }
-
-}
-
 // Enable UART1 interrupt, so don't use NU32_ReadUART1 anymore
 void NU32_EnableUART1Interrupt(void) {
   // turn off the module to change the settings
