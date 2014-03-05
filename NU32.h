@@ -36,8 +36,6 @@
 #define D13 29
 #define D14 30
 #define D15 31
-#define SERVO 0
-#define PWM 1
 #define HIGH 1
 #define LOW 0
 #define SYS_FREQ 80000000           // 80 million Hz
@@ -47,7 +45,6 @@ void NU32_ReadUART1(char* string,int maxLength);
 void NU32_WriteUART1(const char *string);
 void NU32_EnableUART1Interrupt();
 void NU32_DisableUART1Interrupt();
-void init_pwm(int pin, int mode);
 void write_string(UART_MODULE id, const char *string);
 void put_character(UART_MODULE id, const char character);
 int user_switch_pressed();

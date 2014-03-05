@@ -1,5 +1,51 @@
 #include "NU32.h"
 
+void init_pwm(int pin) {
+  switch (pin) {
+	case D0:
+	  OC1CONbits.OCM = 0b110; // PWM mode without fault pin; other OC0CON bits are defaults
+	  OC1RS = 500; // duty cycle = OC1RS/(PR2+1) = 25%
+	  OC1R = 500; // initialize before turning OC0 on; then it is read-only
+	  OC1CONbits.ON = 1; // turn on OC0
+	  OC1RS = 0;
+	  break;	
+	case D1:
+	  OC2CONbits.OCM = 0b110; 
+	  OC2RS = 500; 
+	  OC2R = 500; 
+	  OC2CONbits.ON = 1; 
+	  OC2RS = 0;
+	  break;
+	case D2:
+	  OC3CONbits.OCM = 0b110; 
+	  OC3RS = 500; 
+	  OC3R = 500; 
+	  OC3CONbits.ON = 1; 
+	  OC3RS = 0;
+	  break;
+	case D3:
+          OC4CONbits.OCM = 0b110; 
+	  OC4RS = 500; 
+	  OC4R = 500; 
+	  OC4CONbits.ON = 1; 
+	  OC4RS = 0;
+	  break;
+	case D4:
+	  OC2CONbits.OCM = 0b110; 
+	  OC4RS = 500; 
+	  OC4R = 500; 
+	  OC4CONbits.ON = 1; 
+	  OC4RS = 0;
+	  break;
+	default:
+  	  break;
+
+  }
+
+}
+
+
+/*
 void init_pwm_D4_dir_D5(void);
 void set_speed_D4_dir_D5(int speed, int dir);
 
@@ -36,4 +82,4 @@ void set_speed_D4_dir_D5(int speed, int dir) {
     LATDbits.LATD5 = 1;
     OC5RS = 1999 - 1999*speed/100;
   }
-}
+}*/
