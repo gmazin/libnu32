@@ -69,10 +69,10 @@ void startup() {
   TMR2 = 0;   // start TMR2 counting from zero
   PR2 = 1999; // set period match value
   
-  T1CON = 0; // turn off TMR1 (servo)
-  T1CONbits.TCKPS = 0b111; // set prescaler 1:256
-  TMR1 = 0; // start TMR2 counting from zero
-  PR1 = 6249; 
+  T3CON = 0; // turn off TMR1 (servo)
+  T3CONbits.TCKPS = 0b111; // set prescaler 1:256
+  TMR3 = 0; // start TMR2 counting from zero
+  PR3 = 6249; 
   
   
 }
