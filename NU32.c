@@ -271,6 +271,108 @@ int get_pin(int pin) {
   }
 }
 
+void set_pin(int pin, int value) {
+  switch (pin) {
+    case B0:
+      
+      break;
+    case B1:
+      
+      break;
+    case B2:
+      
+      break;
+    case B3:
+      
+      break;
+    case B4:
+      
+      break;
+    case B5:
+      
+      break;
+    case B6:
+      
+      break;
+    case B7:
+      
+      break;
+    case B8:
+      
+      break;
+    case B9:
+      
+      break;
+    case B10:
+      
+      break;
+    case B11:
+      
+      break;
+    case B12:
+      
+      break;
+    case B13:
+      
+      break;
+    case B14:
+      
+      break;
+    case B15:
+      
+      break;
+    case D0:
+      LATDbits.LATD0 = value;
+      break;
+    case D1:
+      LATDbits.LATD1 = value;
+      break;
+    case D2:
+      LATDbits.LATD2 = value;
+      break;
+    case D3:
+      LATDbits.LATD3 = value;
+      break;
+    case D4:
+      LATDbits.LATD4 = value;
+      break;
+    case D5:
+      LATDbits.LATD5 = value;
+      return PORTDbits.RD5;
+      break;
+    case D6:
+      LATDbits.LATD6 = value;
+      break;
+    case D7:
+      LATDbits.LATD7 = value;
+      break;
+    case D8:
+      LATDbits.LATD8 = value;
+      break;
+    case D9:
+      LATDbits.LATD9 = value;
+      break;
+    case D10:
+      LATDbits.LATD10 = value;
+      break;
+    case D11:
+      LATDbits.LATD11 = value;
+      break;
+    case D12:
+      LATDbits.LATD12 = value;
+      break;
+    case D13:
+      LATDbits.LATD13 = value;
+      break;
+    case D14:
+      LATDbits.LATD14 = value;
+      break;
+    case D15:
+      LATDbits.LATD15 = value;
+      break;
+  }
+}
+
 int user_switch_pressed() {
     return !PORTCbits.RC13;
 }
