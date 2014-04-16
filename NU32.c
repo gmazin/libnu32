@@ -61,6 +61,20 @@ void startup() {
   AD1CON3bits.ADRC = 1; // Use internal RC clock
   AD1CON3bits.SAMC = 2; // Set sampling time 2*Tad
   AD1CON1bits.ADON = 1; // Turn the ADC on
+  
+  // ---- INITIALIZE PWM TIMERS ---- //
+  
+  T2CON = 0;  // this value will turn off TMR2, T2CON<ON> = 0
+  T2CONbits.TCKPS = 2; // set prescaler 1:4
+  TMR2 = 0;   // start TMR2 counting from zero
+  PR2 = 1999; // set period match value
+  
+  T1CON = 0; // turn off TMR1 (servo)
+  T1CONbits.TCKPS = 0b111; // set prescaler 1:256
+  TMR1 = 0; // start TMR2 counting from zero
+  PR1 = 6249; 
+  
+  
 }
 
 
