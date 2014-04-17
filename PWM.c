@@ -1,3 +1,4 @@
+#include <plib.h>
 #include "NU32.h"
 
 void init_pwm(int pin) {
@@ -52,7 +53,7 @@ void init_pwm(int pin) {
 }
 
 void init_pwm_dir(int pwm_pin, int dir_pin) {
-  init_pin(pwm_pin);
+  init_pwm(pwm_pin);
   set_pin(dir_pin, 0);
 }
 
@@ -61,19 +62,19 @@ void set_speed(int pwm_pin, int speed) {
   speed = speed*20; //100*20 = 2000. max duty cycle
   switch (pwm_pin) {
 	case D0:
-	  OC0RS = speed;
+	  OC1RS = speed;
 	  break;	
 	case D1:
-	  OC1RS = speed;
-	  break;
-	case D2:
 	  OC2RS = speed;
 	  break;
-	case D3:
+	case D2:
 	  OC3RS = speed;
 	  break;
-	case D4:
+	case D3:
 	  OC4RS = speed;
+	  break;
+	case D4:
+	  OC5RS = speed;
 	  break;
 	default:
 	//add serial message if possible

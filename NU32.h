@@ -45,8 +45,6 @@ void NU32_ReadUART1(char* string,int maxLength);
 void NU32_WriteUART1(const char *string);
 void NU32_EnableUART1Interrupt();
 void NU32_DisableUART1Interrupt();
-void write_string(UART_MODULE id, const char *string);
-void put_character(UART_MODULE id, const char character);
 int user_switch_pressed();
 void set_pin(int pin, int state);
 int get_pin(int pin);

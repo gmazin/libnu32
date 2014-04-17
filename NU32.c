@@ -6,6 +6,8 @@
 // Private Buffers
 char NU32_RS232OutBuffer[32]; // Buffer for sprintf in serial tx
 
+void write_string(UART_MODULE id, const char *string);
+void put_character(UART_MODULE id, const char character);
 /* Perform startup routines:
  * Make NU32LED1 and NU32LED2 pins outputs (NU32USER is by default an input)
  * Initialize the serial ports - UART1 (no interrupt) and UART4 (with interrupt)
@@ -352,7 +354,6 @@ void set_pin(int pin, int value) {
       break;
     case D5:
       LATDbits.LATD5 = value;
-      return PORTDbits.RD5;
       break;
     case D6:
       LATDbits.LATD6 = value;
