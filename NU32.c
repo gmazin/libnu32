@@ -1,5 +1,6 @@
 #include <plib.h>
 #include "NU32.h"
+#include "main.h"
 
 #define DESIRED_BAUDRATE_NU32 230400 // Baudrate for RS232
 
@@ -12,6 +13,12 @@ void put_character(UART_MODULE id, const char character);
  * Make NU32LED1 and NU32LED2 pins outputs (NU32USER is by default an input)
  * Initialize the serial ports - UART1 (no interrupt) and UART4 (with interrupt)
  */
+int main(void){
+  startup();
+  setup();
+  while (1) loop();
+}
+ 
 void startup() {
   // set to maximum performance and enable all interrupts
   SYSTEMConfig(SYS_FREQ, SYS_CFG_ALL);
