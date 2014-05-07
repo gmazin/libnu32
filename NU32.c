@@ -170,6 +170,61 @@ void __ISR(_UART_4_VECTOR, ipl3) IntUart4Handler(void) {
   }
 }
 
+void set_pin_mode(int pin, int mode) {
+   switch (pin) {
+    case D0:
+      TRISDbits.TRISD0 = mode;
+      break;
+    case D1:
+      TRISDbits.TRISD1 = mode;
+      break;
+    case D2:
+      TRISDbits.TRISD2 = mode;
+      break;
+    case D3:
+      TRISDbits.TRISD3 = mode;
+      break;
+    case D4:
+      TRISDbits.TRISD4 = mode;
+      break;
+    case D5:
+      TRISDbits.TRISD5 = mode;
+      break;
+    case D6:
+      TRISDbits.TRISD6 = mode;
+      break;
+    case D7:
+      TRISDbits.TRISD7 = mode;
+      break;
+    case D8:
+      TRISDbits.TRISD8 = mode;
+      break;
+    case D9:
+      TRISDbits.TRISD9 = mode;
+      break;
+    case D10:
+      TRISDbits.TRISD10 = mode;
+      break;
+    case D11:
+      TRISDbits.TRISD11 = mode;
+      break;
+    case D12:
+      TRISDbits.TRISD12 = mode;
+      break;
+    case D13:
+      TRISDbits.TRISD13 = mode;
+      break;
+    case D14:
+      TRISDbits.TRISD14 = mode;
+      break;
+    case D15:
+      TRISDbits.TRISD15 = mode;
+      break;
+    default:
+      break;
+   }
+}
+
 int get_pin(int pin) {
   switch (pin) {
     case B0:
@@ -267,6 +322,8 @@ int get_pin(int pin) {
       break;
     case D15:
       return PORTDbits.RD15;
+      break;
+    default:
       break;
   }
 }
