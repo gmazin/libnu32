@@ -1,15 +1,24 @@
 #include <plib.h>
 #include "NU32.h"
+#include "main.h"
 
 #define DESIRED_BAUDRATE_NU32 230400 // Baudrate for RS232
 
 // Private Buffers
 char NU32_RS232OutBuffer[32]; // Buffer for sprintf in serial tx
 
+void write_string(UART_MODULE id, const char *string);
+void put_character(UART_MODULE id, const char character);
 /* Perform startup routines:
  * Make NU32LED1 and NU32LED2 pins outputs (NU32USER is by default an input)
  * Initialize the serial ports - UART1 (no interrupt) and UART4 (with interrupt)
  */
+int main(void){
+  startup();
+  setup();
+  while (1) loop();
+}
+ 
 void startup() {
   // set to maximum performance and enable all interrupts
   SYSTEMConfig(SYS_FREQ, SYS_CFG_ALL);
@@ -61,6 +70,20 @@ void startup() {
   AD1CON3bits.ADRC = 1; // Use internal RC clock
   AD1CON3bits.SAMC = 2; // Set sampling time 2*Tad
   AD1CON1bits.ADON = 1; // Turn the ADC on
+  
+  // ---- INITIALIZE PWM TIMERS ---- //
+  
+  T2CON = 0;  // this value will turn off TMR2, T2CON<ON> = 0
+  T2CONbits.TCKPS = 2; // set prescaler 1:4
+  TMR2 = 0;   // start TMR2 counting from zero
+  PR2 = 1999; // set period match value
+  
+  T3CON = 0; // turn off TMR1 (servo)
+  T3CONbits.TCKPS = 0b111; // set prescaler 1:256
+  TMR3 = 0; // start TMR2 counting from zero
+  PR3 = 6249; 
+  
+  
 }
 
 
@@ -324,6 +347,107 @@ int get_pin(int pin) {
       return PORTDbits.RD15;
       break;
     default:
+      break;
+  }
+}
+
+void set_pin(int pin, int value) {
+  switch (pin) {
+    case B0:
+      
+      break;
+    case B1:
+      
+      break;
+    case B2:
+      
+      break;
+    case B3:
+      
+      break;
+    case B4:
+      
+      break;
+    case B5:
+      
+      break;
+    case B6:
+      
+      break;
+    case B7:
+      
+      break;
+    case B8:
+      
+      break;
+    case B9:
+      
+      break;
+    case B10:
+      
+      break;
+    case B11:
+      
+      break;
+    case B12:
+      
+      break;
+    case B13:
+      
+      break;
+    case B14:
+      
+      break;
+    case B15:
+      
+      break;
+    case D0:
+      LATDbits.LATD0 = value;
+      break;
+    case D1:
+      LATDbits.LATD1 = value;
+      break;
+    case D2:
+      LATDbits.LATD2 = value;
+      break;
+    case D3:
+      LATDbits.LATD3 = value;
+      break;
+    case D4:
+      LATDbits.LATD4 = value;
+      break;
+    case D5:
+      LATDbits.LATD5 = value;
+      break;
+    case D6:
+      LATDbits.LATD6 = value;
+      break;
+    case D7:
+      LATDbits.LATD7 = value;
+      break;
+    case D8:
+      LATDbits.LATD8 = value;
+      break;
+    case D9:
+      LATDbits.LATD9 = value;
+      break;
+    case D10:
+      LATDbits.LATD10 = value;
+      break;
+    case D11:
+      LATDbits.LATD11 = value;
+      break;
+    case D12:
+      LATDbits.LATD12 = value;
+      break;
+    case D13:
+      LATDbits.LATD13 = value;
+      break;
+    case D14:
+      LATDbits.LATD14 = value;
+      break;
+    case D15:
+      LATDbits.LATD15 = value;
       break;
   }
 }
