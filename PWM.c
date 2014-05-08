@@ -58,8 +58,8 @@ void init_pwm_dir(int pwm_pin, int dir_pin) {
 }
 
 void set_speed(int pwm_pin, int speed) {
-  if (speed > 100) speed = 0;
-  speed = speed*20; //100*20 = 2000. max duty cycle
+  if (speed > 2000) speed = 0;
+  //speed = speed*20; //100*20 = 2000. max duty cycle
   switch (pwm_pin) {
 	case D0:
 	  OC1RS = speed;

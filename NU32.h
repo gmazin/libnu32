@@ -39,6 +39,8 @@
 #define HIGH 1
 #define LOW 0
 #define SYS_FREQ 80000000           // 80 million Hz
+#define IN 1
+#define OUT 0
 
 void startup();
 void NU32_ReadUART1(char* string,int maxLength);
@@ -46,6 +48,7 @@ void NU32_WriteUART1(const char *string);
 void NU32_EnableUART1Interrupt();
 void NU32_DisableUART1Interrupt();
 int user_switch_pressed();
+void set_pin_mode(int pin, int mode);
 void set_pin(int pin, int state);
 int get_pin(int pin);
 
