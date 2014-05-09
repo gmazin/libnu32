@@ -27,11 +27,11 @@ void loop(){
     range = ping_ultrasonic(D11, D10, 250);
     sprintf(message, "%d cm\n", range);
     NU32_WriteUART1(message);
-    if(range > 25){
-        set_speed(D2, 2000);
+    if(range > 30){
+        set_speed(D2, 1200);
         set_pin(D3, LOW);
     } else if(range < 7){
-        set_speed(D2, 0);
+        set_speed(D2, 800);
         set_pin(D3, HIGH);
     } else {
         set_speed(D2, 0);
