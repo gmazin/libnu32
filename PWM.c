@@ -54,6 +54,7 @@ void init_pwm(int pin) {
 
 void init_pwm_dir(int pwm_pin, int dir_pin) {
   init_pwm(pwm_pin);
+  set_pin_mode(dir_pin, OUT);
   set_pin(dir_pin, 0);
 }
 

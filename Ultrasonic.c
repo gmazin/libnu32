@@ -7,52 +7,13 @@
 #include "Ultrasonic.h"
 
 
-
-void init_ultrasonic(int echo, int trig)
+void swap(int array[], int i, int j)
 {
-    set_pin_mode(echo, IN);
-    set_pin_mode(trig, OUT);
-    set_pin(trig, LOW);
-   
-  //TRISEbits.TRISE8 = 1; // ECHO to A2, NU32 input pin
-  //TRISEbits.TRISE9 = 0; // TRIG to A3, NU32 output pin
-  //LATEbits.LATE9 = 0; // start off
+  int temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
 }
 
-double ping_ultrasonic(int echo, int trig, int max_distance) //max_distance in cm
-{//ping HC-SR04 ultrasonic range finder, 10us trigger pulse, sends eight 40kHz pulses
-    int start_time;
-    int max_time; //max_time in system cycles
-    int flight_time;
-    
-    max_time = max_distance * 4640; //Distance(cm) = Time(us)/58, 80 cycles per us, 58*80=4640
-    start_time = ReadCoreTimer();
-    set_pin(trig, HIGH);
-    while(ReadCoreTimer() - start_time < 800){ //800 cycles at 80MHz, 10us trigger pulse 
-    }
-    set_pin(trig, LOW);
-    while(!get_pin(echo)){
-    }
-    start_time = ReadCoreTimer();
-    while(get_pin(echo) && (ReadCoreTimer() - start_time < max_time)){
-    }
-    flight_time = ReadCoreTimer() - start_time;
-    return flight_time / 4640;
-}
-
-double ping_ultrasonic_median(int echo, int trig, int max_distance, int iterations)
-{
-    int flight_time[iterations];
-    int i;
-    int start_time;
-    for(i = 0; i < iterations; i++){
-        flight_time[i] = ping_ultrasonic(echo, trig, max_distance);
-        start_time = ReadCoreTimer();
-        while(ReadCoreTimer() - start_time < 4000000){//i think this is 50 ms
-        }
-    }
-    return find_median(flight_time, iterations);
-}
 
 int partition(int array[], int left, int right)
 {
@@ -93,11 +54,61 @@ int find_median(int array[], int length)
   }
 }
 
-void swap(int array[], int i, int j)
+
+void init_ultrasonic(int echo, int trig)
 {
-  int temp = array[i];
-  array[i] = array[j];
-  array[j] = temp;
+    set_pin_mode(echo, IN);
+    set_pin_mode(trig, OUT);
+    set_pin(trig, LOW);
+   
+  //TRISEbits.TRISE8 = 1; // ECHO to A2, NU32 input pin
+  //TRISEbits.TRISE9 = 0; // TRIG to A3, NU32 output pin
+  //LATEbits.LATE9 = 0; // start off
+}
+
+int ping_ultrasonic(int echo, int trig, int max_distance) //max_distance in cm
+{//ping HC-SR04 ultrasonic range finder, 10us trigger pulse, sends eight 40kHz pulses
+    int start_time;
+    int max_time; //max_time in system cycles
+    int flight_time;
+    //char message[100];
+    //sprintf(message, "bump");
+
+    //NU32_WriteUART1(message);
+    max_time = max_distance * 2320; //Distance(cm) = Time(us)/58, 40 core cycles per us, 58*40=2320
+    //start_time = ReadCoreTimer();
+    WriteCoreTimer(0);
+    set_pin(trig, HIGH);
+    while(ReadCoreTimer() < 1600){ //400 cycles at 40MHz, 10us trigger pulse
+    }
+    set_pin(trig, LOW);
+    //NU32_WriteUART1(message);
+    while(!get_pin(echo)){
+    }
+    //NU32_WriteUART1(message);
+    //start_time = ReadCoreTimer();
+    WriteCoreTimer(0);
+    while(get_pin(echo) && (ReadCoreTimer() < max_time)){
+    }
+    //flight_time = ReadCoreTimer() - start_time;
+    flight_time = ReadCoreTimer();
+    //sprintf(message, "%d\n", flight_time);
+    //NU32_WriteUART1(message);
+    return flight_time / 2320;
+}
+
+int ping_ultrasonic_median(int echo, int trig, int max_distance, int iterations)
+{
+    int flight_time[iterations];
+    int i;
+    int start_time;
+    for(i = 0; i < iterations; i++){
+        flight_time[i] = ping_ultrasonic(echo, trig, max_distance);
+        start_time = ReadCoreTimer();
+        while(ReadCoreTimer() - start_time < 4000000){//i think this is 50 ms
+        }
+    }
+    return find_median(flight_time, iterations);
 }
 
 // return the time of flight of the ultrasonic signal
