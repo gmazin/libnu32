@@ -2,38 +2,113 @@
  * File:   Servo.c
  * Author: gmazin
  */
-
+#include <plib.h>
 #include "NU32.h"
+#include "Servo.h"
 
-void init_rcservo(void);
-void set_rcservo(int degrees);
-
-void init_rcservo(void) {
-  // set a 50Hz timer for the PWM signal to the rc servo
-  T2CON = 0; // turn off TMR2, T2CON<ON> = 0
-  OC1CON = 0; // turn off OC1, OC1CON<ON> = 0
-  T2CONbits.TCKPS = 0b111; // set prescaler 1:256, see RM Section 14 pp. 9-10
-  TMR2 = 0; // start TMR2 counting from zero
-  PR2 = 6249; // set period match value
-  /* now TMR2 has a period of (PR2 + 1) / PBCLK * 2^T2CON<TCKPS> = 20ms or 50Hz. */
-
-  OC1CONbits.OCM = 0b110; // enable PWM mode with no fault protection
-  /* 0 degrees on the servo is a 0.5ms pulse, or OC1RS = (6250/0.02s)*0.0005s = 157 */
-  /* 180 degrees on the servo is a 2.5ms pulse, or OC1RS = (6250/0.02s)*0.0025s = 781 */
-  /* 90 degrees on the servo is a 1.5ms pulse, or OC1RS = (6250/0.02s)*0.0015s = 467 */
-  /* so DON'T SET OC1RS OUTSIDE THE RANGE 157-781*/
-  OC1RS = 467; // duty cycle is OC1RS/(PR2+1)
-  OC1R = 467; // set initial PWM duty cycle in counts
-  // don't write to OC1R while PWM is running (it's read-only),
-  // instead use OC1RS.
-
-  T2CONbits.ON = 1; // turn on TMR2
-  OC1CONbits.ON = 1; // turn on OC1 (pin D0)
+void init_rcservo(int pin)
+{
+    T2CON = 0; //turn off Timer2 when configuring it
+    switch(pin){
+        case D0:
+            OC1CON = 0; //i guess turn off OC1 when configuring it too
+            T2CONbits.TCKPS = 0b111; //prescaler N=256 (2^7)
+            TMR2 = 0; //initial Timer2 count to 0
+            PR2 = 6249; //the period will be (PR2+1)*N*12.5ns = 20ms, or 50Hz
+            OC1CONbits.OCM = 0b110;
+            /*
+             * 0 degrees = 0.5ms pulse = (6250/.02)*.0005 = 157
+             * 90 degrees = 1.5ms pulse = (6250/.02)*.0015 = 469
+             * 180 degrees = 2.5ms pulse = (6250/.02)*.0025 = 781
+             */
+            OC1RS = 469;
+            OC1R = 469;
+            OC1CONbits.ON = 1;
+            break;
+        case D1:
+            OC2CON = 0;
+            T2CONbits.TCKPS = 0b111;
+            TMR2 = 0;
+            PR2 = 6249;
+            OC2CONbits.OCM = 0b110;
+            OC2RS = 469;
+            OC2R = 469;
+            OC2CONbits.ON = 1;
+            break;
+        case D2:
+            OC3CON = 0;
+            T2CONbits.TCKPS = 0b111;
+            TMR2 = 0;
+            PR2 = 6249;
+            OC3CONbits.OCM = 0b110;
+            OC3RS = 469;
+            OC3R = 469;
+            OC3CONbits.ON = 1;
+            break;
+        case D3:
+            OC4CON = 0;
+            T2CONbits.TCKPS = 0b111;
+            TMR2 = 0;
+            PR2 = 6249;
+            OC4CONbits.OCM = 0b110;
+            OC4RS = 469;
+            OC4R = 469;
+            OC4CONbits.ON = 1;
+            break;
+        case D4:
+            OC5CON = 0;
+            T2CONbits.TCKPS = 0b111;
+            TMR2 = 0;
+            PR2 = 6249;
+            OC5CONbits.OCM = 0b110;
+            OC5RS = 469;
+            OC5R = 469;
+            OC5CONbits.ON = 1;
+            break;
+        default:
+            break;
+    }
+    T2CONbits.ON = 1;
 }
 
-void set_rcservo(int degrees) {
-  float set_valuef = degrees * 3.467+157.0; //(degrees-0)*(781-157)/(180-0)+157;
-  int set_valuei = set_valuef;
+void set_rcservo(int pin, int degrees)
+{
+    float set_valuef;
+    int set_valuei;
+    switch(pin){
+        case D0:
+            set_valuef = degrees * 3.467+157.0;
+            set_valuei = set_valuef;
+            OC1RS = set_valuei;
+            //OC1RS = (int)(157 + ((degrees/180.0) * 624));
+            break;
+        case D1:
+            set_valuef = degrees * 3.467+157.0;
+            set_valuei = set_valuef;
+            //OC2RS = (int)(157 + ((degrees/180.0) * 624));
+            break;
+        case D2:
+            set_valuef = degrees * 3.467+157.0;
+            set_valuei = set_valuef;
+            //OC3RS = (int)(157 + ((degrees/180.0) * 624));
+            break;
+        case D3:
+            set_valuef = degrees * 3.467+157.0;
+            set_valuei = set_valuef;
+            //OC4RS = (int)(157 + ((degrees/180.0) * 624));
+            break;
+        case D4:
+            set_valuef = degrees * 3.467+157.0;
+            set_valuei = set_valuef;
+            //OC5RS = (int)(157 + ((degrees/180.0) * 624));
+            break;
+        default:
+            break;
+    }
+}
 
-  OC1RS = set_valuei;
+int read_rcservo(int pin)
+{
+    ///can we just access the value in OCxRS? readable?
+    return 0;
 }
