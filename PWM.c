@@ -82,6 +82,53 @@ void set_speed(int pwm_pin, int speed) {
   	  break;
   }
 }
+
+void enable_pwm(int pin)
+{
+    switch(pin)
+    {
+        case D0:
+            OC1CONbits.ON = 1;
+            break;
+        case D1:
+            OC2CONbits.ON = 1;
+            break;
+        case D2:
+            OC3CONbits.ON = 1;
+            break;
+        case D3:
+            OC4CONbits.ON = 1;
+            break;
+        case D4:
+            OC5CONbits.ON = 1;
+            break;
+        default:
+            break;
+    }
+}
+void disable_pwm(int pin)
+{
+    switch(pin)
+    {
+        case D0:
+            OC1CONbits.ON = 0;
+            break;
+        case D1:
+            OC2CONbits.ON = 0;
+            break;
+        case D2:
+            OC3CONbits.ON = 0;
+            break;
+        case D3:
+            OC4CONbits.ON = 0;
+            break;
+        case D4:
+            OC5CONbits.ON = 0;
+            break;
+        default:
+            break;
+    }
+}
 	
 /*
 void init_pwm_D4_dir_D5(void);
