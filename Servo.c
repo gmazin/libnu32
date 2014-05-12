@@ -16,6 +16,7 @@ void init_rcservo(int pin)
         case D0:
             OC1CON = 0; //i guess turn off OC1 when configuring it too
             OC1CONbits.OCM = 0b110;
+            OC1CONbits.OCTSEL = 1; //set Timer3 as the timer source for Servos
             /*
              * 0 degrees = 0.5ms pulse = (6250/.02)*.0005 = 157
              * 90 degrees = 1.5ms pulse = (6250/.02)*.0015 = 469
@@ -28,6 +29,7 @@ void init_rcservo(int pin)
         case D1:
             OC2CON = 0;
             OC2CONbits.OCM = 0b110;
+            OC2CONbits.OCTSEL = 1;
             OC2RS = 469;
             OC2R = 469;
             OC2CONbits.ON = 1;
@@ -35,6 +37,7 @@ void init_rcservo(int pin)
         case D2:
             OC3CON = 0;
             OC3CONbits.OCM = 0b110;
+            OC3CONbits.OCTSEL = 1;
             OC3RS = 469;
             OC3R = 469;
             OC3CONbits.ON = 1;
@@ -42,6 +45,7 @@ void init_rcservo(int pin)
         case D3:
             OC4CON = 0;
             OC4CONbits.OCM = 0b110;
+            OC4CONbits.OCTSEL = 1;
             OC4RS = 469;
             OC4R = 469;
             OC4CONbits.ON = 1;
@@ -49,6 +53,7 @@ void init_rcservo(int pin)
         case D4:
             OC5CON = 0;
             OC5CONbits.OCM = 0b110;
+            OC5CONbits.OCTSEL = 1;
             OC5RS = 469;
             OC5R = 469;
             OC5CONbits.ON = 1;
@@ -57,6 +62,7 @@ void init_rcservo(int pin)
             break;
     }
     T3CONbits.ON = 1;
+    //set_pin_mode(pin, IN);
 }
 
 void set_rcservo(int pin, int degrees)
