@@ -4,16 +4,17 @@ libnu32
 An abstraction library for the PIC32-based NU32 microcontroller.
 --------------------
 
-*Under heavy development: currently not recommended for use.*
+In an effort to make the NU32 more "Arduino-like" and easier to use for those who may not necessarily want to deal with the internals of the NU32 (such as Design Competition students) I have started this project which aims to add simple functions for common components.
 
-#### What has been done:
+In order to use:
+1. Download MPLAB X and the XC32 compiler and install.
+2. Download this code, and add it as a project in MPLAB X.
+3. Open main.c and add some code! Be sure to include header files for components you are using.
 
-* Refactoring of some of the pins, including read/write
-* Project structure with existing code ready to be refactored
-* First workshop in the new simplified code structure
-
-#### What still needs to be done:
-
-* Refactor the rest of the existing code
-* More classes to be added for other components
-* Implementation of the remainder of the workshops
+Currently supported components:
+- Servo
+- PWM motors  (bidirection and single directional)
+- Various NU32 functions, such as serial input and output
+- Ultrasonic sensors
+- Digital input/output for any such device (LED, relays, etc)
+- Analog input (read potentiometer value, IR detector...)
